@@ -1,0 +1,97 @@
+.todos {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.todos-wrapper {
+    display: block;
+    width: 400px;
+}
+
+.add-todo-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.add-todo-form .todo-input {
+    width: 79%;
+    height: 26px;
+    margin-left: 10px;
+}
+
+
+.add-todo-form .todo-submit {
+    width: 20%;
+    height: 30px;
+    border-width: 1px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.todo {
+    display: flex;
+    justify-content: center;
+}
+
+.todo-list {
+    width: 100%;
+}
+
+.todo-list .todo {
+    padding-top: 20px;
+}
+
+.todo>* {
+    padding-bottom: 20px;
+}
+
+.todo .id {
+    width: 10%;
+    max-width: 10%;
+    min-width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.todo .content {
+    width: 68%;
+    max-width: 68%;
+    min-width: 68%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+    overflow-wrap: break-word;
+    inline-size: 30%;
+    padding-left: 2%;
+    word-break: break-all;
+}
+
+.todo.done .content {
+    text-decoration: line-through;
+}
+
+.todo .remove {
+    width: 20%;
+    max-width: 20%;
+    min-width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-button {
+    background-color: rgb(218, 101, 101);
+    border: 0px solid black;
+    padding: 7px;
+    height: 30px;
+}
+
+.remove-button:hover {
+    cursor: pointer;
+    color: white;
+}

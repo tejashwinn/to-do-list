@@ -2,6 +2,7 @@ import { Component, NgModule } from '@angular/core';
 import { Todo } from '../../models/Todo';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-todos',
   standalone: true,
@@ -14,19 +15,10 @@ export class TodosComponent {
   todos: Todo[];
   inputTodo: string = "";
 
-  constructor() { }
+  constructor(private cookieService: CookieService) { }
 
   ngOnInit(): void {
-    this.todos = [
-      {
-        content: 'First todo',
-        completed: false
-      },
-      {
-        content: 'Second todo',
-        completed: true
-      }
-    ]
+    this.todos = JSON.parse(this.cookieService.get("todos"));
   }
 
   toggleDone(id: number) {
@@ -38,6 +30,7 @@ export class TodosComponent {
 
   removeDone(id: number) {
     this.todos = this.todos.filter((v, i) => i !== id);
+    this.setCookies();
   }
 
   addTodo() {
@@ -50,6 +43,12 @@ export class TodosComponent {
       completed: false
     });
     this.inputTodo = '';
+    this.setCookies();
+  }
+
+  setCookies() {
+    this.cookieService.set("todos", JSON.stringify(this.todos));
+    console.log(this.todos);
   }
 
 }
