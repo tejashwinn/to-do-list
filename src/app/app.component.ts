@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { TodosComponent } from './components/todos/todos.component';
-import { CookieService } from 'ngx-cookie-service';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +10,12 @@ import { CookieService } from 'ngx-cookie-service';
   imports: [
     CommonModule,
     RouterOutlet,
-    TodosComponent
+    TodosComponent,
+    HttpClientModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [
-    CookieService
   ]
 })
 export class AppComponent {

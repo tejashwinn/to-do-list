@@ -8,9 +8,9 @@
             <div *ngFor="let todo of todos; let i = index;" 
             class="todo {{todo.completed ? 'done': ''}}">
                 <div class="id">{{i+1}}</div>
-                <div class="content" (click)="toggleDone(i)"> {{todo.content}} </div>
+                <div class="content" (click)="toggleDone(todo.id)"> {{todo.content}} </div>
                 <div class="remove">
-                    <button class="remove-button" (click)="removeDone(i)">Remove</button>
+                    <button class="remove-button" (click)="removeDone(todo.id)">Remove</button>
                 </div>
             </div>
         </div>
