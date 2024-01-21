@@ -3,7 +3,7 @@ import { Todo } from '../../models/Todo';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TodoService } from './todos.service';
-import {v4 as UUID} from 'uuid';
+import { v4 as UUID } from 'uuid';
 
 @Component({
   selector: 'app-todos',
@@ -26,12 +26,13 @@ export class TodosComponent {
   }
 
   getAllTodos() {
-    this.todoService.getTodos().subscribe((data) => {
-      this.todos = data;
-    }, (error) => {
-      console.error("Error during fetching todos", error);
-    }
-    );
+    this.todoService.getTodos()
+      .subscribe(
+        {
+          next: (data) => this.todos = data,
+          error: (errorResposne) => console.error("Error during fetching todos", errorResposne)
+        }
+      );
   }
 
   toggleDone(id: string) {
@@ -41,37 +42,47 @@ export class TodosComponent {
         if (v.id === id) {
           v.completed = !v.completed;
           this.todoService.markAsDone(v.id, v)
-            .subscribe((data) => v.completed = data?.completed,
-              (error) => console.error("Error during updating", error))
+            .subscribe(
+              {
+                next: (response) => v.completed = response?.completed,
+                error: (errorResponse) => console.error("Error during updating", errorResponse)
+              }
+            )
         }
         return v;
       })
   }
 
   removeDone(id: string) {
-    // this.todos = this.todos.filter((v, i) => v.id !== id);
-    this.todoService.deleteTodo(id).subscribe(
-      () => this.getAllTodos(),
-      (error) => console.error("Error during deletion", error));
+    this.todoService.deleteTodo(id)
+      .subscribe(
+        {
+          next: () => this.todos = this.todos.filter((v, i) => v.id !== id),
+          error: (errorResponse) => console.error("Error during deletion", errorResponse)
+        }
+      );
   }
 
   addTodo() {
     if (this.inputTodo.length === 0) {
       return;
     }
-    const generatedUUID: string = UUID();
-
     const newTodo = {
-      id: generatedUUID,
+      id: UUID(),
       content: this.inputTodo,
       completed: false
     };
-    this.todoService.addTodo(newTodo).subscribe((data) => {
-      this.todos.push(data);
-    }, (error) => {
-      console.error("Error during fetching todos", error);
-    }
-    );
+    this.todoService.addTodo(newTodo)
+      .subscribe(
+        {
+          next: (response) => {
+            this.todos.push(response)
+          },
+          error: (errorResponse) => {
+            console.error("Error during fetching todos", errorResponse)
+          }
+        }
+      );
     this.inputTodo = '';
   }
 
